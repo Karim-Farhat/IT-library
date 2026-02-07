@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Book Library</title>
+
+    <link rel="stylesheet" href="styles/main.css" />
+  </head>
+
+  <body>
+    <header class="page-header">
+      <h1>💻 My CSE Library 📚</h1>
+      <p>My library of only CSE books that I've read and learned from.</p>
+    </header>
+
+    <main class="library-container">
+      <% if (locals.books && books.length > 0){ %>
+        <% for(let book of books){ %>
+      <article class="book-card">
+        <img
+          class="book-cover"
+          src="<%= book.img %>"
+          alt="Book Cover"
+        />
+
+        <div class="book-info">
+          <h2 class="book-title"><%= book.name %></h2>
+          <p class="book-author">By <%= book.author %></p>
+
+          <p class="book-rating">⭐ <%= book.rating %> / 5</p>
+          <br />
+          <p class="book-notes">
+            <%= book.note %>
+          </p>
+          <br />
+          <div class="card-buttons">
+            <form action="/edit" method="GET">
+              <button class="btn edit-btn" name="updatedItemId" value="<%= book.id %>">Edit</button>
+            </form>
+
+            <form action="/delete" method="POST">
+              <button class="btn delete-btn" name="deleteItemId" value="<%= book.id %>">Delete</button>
+            </form>
+          </div>
+        </div>
+      </article>
+      <% } %>
+      <% }else{ %>
+      <p class="empty-message">No books in your library. Add some!</p>
+      <% } %>
+      <a href="/add" class="fab" method="GET"> + </a>
+    </main>
+
+    <footer class="page-footer">
+      © <%= new Date().getFullYear() %> Book Library
+    </footer>
+  </body>
+</html>
